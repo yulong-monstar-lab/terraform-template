@@ -11,7 +11,7 @@ provider "azurerm" {
 
 // Web app module, contains service plan and web app.
 module "webapp" {
-  source                  = "../../modules/webapp"
+  source                  = "../../modules/azure/webapp"
   resource_group_name     = var.resource_group_name
   resource_group_location = var.resource_group_location
   service_plan_name       = var.service_plan_name
@@ -26,7 +26,7 @@ module "webapp" {
 
 // Network
 module "networking" {
-  source                            = "../../modules/networking"
+  source                            = "../../modules/azure/networking"
   resource_group_name               = var.resource_group_name
   resource_group_location           = var.resource_group_location
   virtual_network_name              = var.virtual_network_name
@@ -44,7 +44,7 @@ module "networking" {
 
 // dns
 module "dns" {
-  source                    = "../../modules/dns"
+  source                    = "../../modules/azure/dns"
   resource_group_name       = var.resource_group_name
   private_dns_zone_name     = var.private_dns_zone_name
   virtual_network_link_name = var.virtual_network_link_name
@@ -54,7 +54,7 @@ module "dns" {
 
 // DB
 module "database" {
-  source                  = "../../modules/database"
+  source                  = "../../modules/azure/database"
   db_name                 = var.db_name
   resource_group_name     = var.resource_group_name
   resource_group_location = var.resource_group_location
