@@ -58,6 +58,18 @@ resource "azurerm_network_security_group" "protected_subnet" {
   }
 
   security_rule {
+    name                       = "AllowAnyCustom5432Outbound"
+    priority                   = 1000
+    direction                  = "Outbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "5432"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
     name                       = "deny_all_outbound"
     priority                   = 4096
     direction                  = "Outbound"

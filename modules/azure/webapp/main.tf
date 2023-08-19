@@ -5,6 +5,7 @@ resource "azurerm_service_plan" "webapp" {
   name                = var.service_plan_name
   os_type             = var.service_plan_os_type
   sku_name            = var.service_plan_sku_name
+  
   tags                = var.tags
 }
 
@@ -16,13 +17,12 @@ resource "azurerm_linux_web_app" "webapp" {
   https_only          = var.web_app_https_only
   name                = var.web_app_name
   service_plan_id     = azurerm_service_plan.webapp.id
-  identity {
-    type = "SystemAssigned"
-  }
+  
   site_config {
-    always_on              = false
-    ftps_state             = "FtpsOnly"
-    vnet_route_all_enabled = true
+    application_stack {
+      docker_image_name     = "appsvc/staticsite:latest"
+      docker_registry_url   = "https://mcr.microsoft.com"
+    }
   }
   depends_on = [
     azurerm_service_plan.webapp,

@@ -125,3 +125,21 @@ variable "database_collation" {
 variable "database_charset" {
   type = string
 }
+
+// Container Registry
+variable "acr_name" {
+  type = string
+}
+
+variable "acr_sku" {
+  type = string
+}
+
+// key vault
+variable "key_vault_name" {
+  type = string
+}
+
+variable "key_vault_sku" {
+  type = string
+}

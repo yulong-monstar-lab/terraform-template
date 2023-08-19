@@ -1,13 +1,32 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "3.69.0"
+    }
+  }
+}
 
 provider "azurerm" {
   features {}
 }
+
 
 # resource "azurerm_resource_group" "webapp" {
 #   location = var.resource_group_location
 #   name     = var.resource_group_name
 #   tags     = var.tags
 # }
+
+# Container Registry
+resource "azurerm_container_registry" "acr" {
+  name                = var.acr_name
+  resource_group_name = var.resource_group_name
+  location            = var.resource_group_location
+  sku                 = var.acr_sku
+  admin_enabled       = true
+}
+
 
 // Web app module, contains service plan and web app.
 module "webapp" {
@@ -67,10 +86,12 @@ module "database" {
   db_high_availability    = var.db_high_availability
   delegated_subnet_id     = module.networking.private_subnet_id // Output of network module
   private_dns_zone_id     = module.dns.private_dns_zone_id      // Output of network dns
-  database_name      = var.database_name
-  database_collation = var.database_collation
-  database_charset   = var.database_charset
+  database_name           = var.database_name
+  database_collation      = var.database_collation
+  database_charset        = var.database_charset
   # depends_on = [azurerm_resource_group.webapp, module.dns.azurerm_private_dns_zone_virtual_network_link.private_dns_zone]
   # depends_on         = [module.dns]
-  tags               = var.tags
+  tags = var.tags
 }
+
+

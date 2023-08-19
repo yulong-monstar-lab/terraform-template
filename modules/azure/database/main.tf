@@ -11,10 +11,12 @@ resource "azurerm_postgresql_flexible_server" "db" {
   administrator_password = var.db_pwd
   zone                   = var.db_zone
 
-  high_availability {
-    mode                      = var.db_high_availability.mode
-    standby_availability_zone = var.db_high_availability.standby_availability_zone
-  }
+  // sku: general purpose and above are supported high_availability, e.g., GP_Standard_D2s_v3
+  // sku: B_Standard_B1ms doesn't support this
+  # high_availability {
+  #   mode                      = var.db_high_availability.mode
+  #   standby_availability_zone = var.db_high_availability.standby_availability_zone
+  # }
 
   delegated_subnet_id = var.delegated_subnet_id
   private_dns_zone_id = var.private_dns_zone_id
