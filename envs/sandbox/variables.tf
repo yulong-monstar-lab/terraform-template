@@ -27,8 +27,32 @@ variable "web_app_name" {
 variable "web_app_https_only" {
   type = bool
 }
-variable "app_settings" {
-  type = map(string)
+variable "APP_ENV" {
+  type = string
+}
+variable "APP_PORT" {
+  type = string
+}
+variable "DB_NAME" {
+  type = string
+}
+variable "DB_PORT" {
+  type = string
+}
+variable "DB_SSL" {
+  type = string
+}
+variable "JWT_ACCESS_TOKEN_EXP_IN_SEC" {
+  type = string
+}
+variable "JWT_REFRESH_TOKEN_EXP_IN_SEC" {
+  type = string
+}
+variable "WEBSITES_ENABLE_APP_SERVICE_STORAGE" {
+  type = string
+}
+variable "DEFAULT_ADMIN_USER_PASSWORD" {
+  type = string
 }
 
 // network module
@@ -81,47 +105,27 @@ variable "virtual_network_link_name" {
 variable "db_name" {
   type = string
 }
-
 variable "db_version" {
   type = string
 }
-
 variable "db_storage_mb" {
   type = number
 }
-
 variable "db_sku_name" {
   type = string
 }
-
-variable "db_login" {
-  type = string
-}
-
-variable "db_pwd" {
-  type = string
-}
-
-
 variable "db_zone" {
   type = string
 }
-
-
 variable "db_high_availability" {
   type = map(string)
 }
-
 variable "database_name" {
   type = string
 }
-
-
 variable "database_collation" {
   type = string
 }
-
-
 variable "database_charset" {
   type = string
 }
@@ -135,11 +139,8 @@ variable "acr_sku" {
   type = string
 }
 
-// key vault
-variable "key_vault_name" {
+variable "key_vault_id" {
   type = string
 }
 
-variable "key_vault_sku" {
-  type = string
-}
+

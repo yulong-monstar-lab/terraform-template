@@ -8,15 +8,44 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    key_vault {
+      purge_soft_delete_on_destroy    = true
+      recover_soft_deleted_key_vaults = true
+    }
+  }
 }
 
+data "azurerm_client_config" "current" {}
 
 # resource "azurerm_resource_group" "webapp" {
 #   location = var.resource_group_location
 #   name     = var.resource_group_name
 #   tags     = var.tags
 # }
+
+// TODO: create a Key Vault and secrets in it manually before run Terraform apply
+// TODO: replace key_vault_id in terraform.tfvars
+data "azurerm_key_vault_secret" "db_host" {
+  name         = "DBHOST"
+  key_vault_id = var.key_vault_id
+}
+data "azurerm_key_vault_secret" "db_user" {
+  name         = "DBUSER"
+  key_vault_id = var.key_vault_id
+}
+data "azurerm_key_vault_secret" "db_pass" {
+  name         = "DBPASS"
+  key_vault_id = var.key_vault_id
+}
+data "azurerm_key_vault_secret" "jwt_private_key" {
+  name         = "JWT-PRIVATE-KEY-BASE64"
+  key_vault_id = var.key_vault_id
+}
+data "azurerm_key_vault_secret" "jwt_public_key" {
+  name         = "JWT-PUBLIC-KEY-BASE64"
+  key_vault_id = var.key_vault_id
+}
 
 # Container Registry
 resource "azurerm_container_registry" "acr" {
@@ -38,9 +67,21 @@ module "webapp" {
   service_plan_sku_name   = var.service_plan_sku_name
   web_app_name            = var.web_app_name
   web_app_https_only      = var.web_app_https_only
-  app_settings            = var.app_settings
   tags                    = var.tags
-  # depends_on              = [azurerm_resource_group.webapp]
+  APP_ENV = var.APP_ENV
+  APP_PORT                            = var.APP_PORT
+  DB_HOST                             = data.azurerm_key_vault_secret.db_host.value
+  DB_NAME                             = var.DB_NAME
+  DB_USER                             = data.azurerm_key_vault_secret.db_user.value
+  DB_PASS                             = data.azurerm_key_vault_secret.db_pass.value
+  DB_PORT                             = var.DB_PORT
+  DB_SSL                              = var.DB_SSL
+  JWT_ACCESS_TOKEN_EXP_IN_SEC         = var.JWT_ACCESS_TOKEN_EXP_IN_SEC
+  JWT_PRIVATE_KEY_BASE64              = data.azurerm_key_vault_secret.jwt_private_key.value
+  JWT_PUBLIC_KEY_BASE64               = data.azurerm_key_vault_secret.jwt_public_key.value
+  JWT_REFRESH_TOKEN_EXP_IN_SEC        = var.JWT_REFRESH_TOKEN_EXP_IN_SEC
+  WEBSITES_ENABLE_APP_SERVICE_STORAGE = var.WEBSITES_ENABLE_APP_SERVICE_STORAGE
+  DEFAULT_ADMIN_USER_PASSWORD = var.DEFAULT_ADMIN_USER_PASSWORD
 }
 
 // Network
@@ -58,7 +99,6 @@ module "networking" {
   private_subnet_nsg_name           = var.private_subnet_nsg_name
   web_app_id                        = module.webapp.web_app_id // Output of webapp module
   tags                              = var.tags
-  # depends_on                        = [azurerm_resource_group.webapp]
 }
 
 // dns
@@ -68,7 +108,6 @@ module "dns" {
   private_dns_zone_name     = var.private_dns_zone_name
   virtual_network_link_name = var.virtual_network_link_name
   virtual_network_id        = module.networking.virtual_network_id // Output of network module
-  # depends_on                = [azurerm_resource_group.webapp]
 }
 
 // DB
@@ -80,8 +119,8 @@ module "database" {
   db_version              = var.db_version
   db_storage_mb           = var.db_storage_mb
   db_sku_name             = var.db_sku_name
-  db_login                = var.db_login
-  db_pwd                  = var.db_pwd
+  db_login                = data.azurerm_key_vault_secret.db_user.value
+  db_pwd                  = data.azurerm_key_vault_secret.db_pass.value
   db_zone                 = var.db_zone
   db_high_availability    = var.db_high_availability
   delegated_subnet_id     = module.networking.private_subnet_id // Output of network module
@@ -89,8 +128,6 @@ module "database" {
   database_name           = var.database_name
   database_collation      = var.database_collation
   database_charset        = var.database_charset
-  # depends_on = [azurerm_resource_group.webapp, module.dns.azurerm_private_dns_zone_virtual_network_link.private_dns_zone]
-  # depends_on         = [module.dns]
   tags = var.tags
 }
 

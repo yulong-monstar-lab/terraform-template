@@ -13,10 +13,25 @@ resource "azurerm_service_plan" "webapp" {
 resource "azurerm_linux_web_app" "webapp" {
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
-  app_settings        = var.app_settings
   https_only          = var.web_app_https_only
   name                = var.web_app_name
   service_plan_id     = azurerm_service_plan.webapp.id
+  app_settings        = {
+    APP_ENV = var.APP_ENV
+    APP_PORT                            = var.APP_PORT
+    DB_HOST                             = var.DB_HOST
+    DB_NAME                             = var.DB_NAME
+    DB_USER                             = var.DB_USER
+    DB_PASS                             = var.DB_PASS
+    DB_PORT                             = var.DB_PORT
+    DB_SSL                              = var.DB_SSL
+    JWT_ACCESS_TOKEN_EXP_IN_SEC         = var.JWT_ACCESS_TOKEN_EXP_IN_SEC
+    JWT_PRIVATE_KEY_BASE64              = var.JWT_PRIVATE_KEY_BASE64
+    JWT_PUBLIC_KEY_BASE64               = var.JWT_PUBLIC_KEY_BASE64
+    JWT_REFRESH_TOKEN_EXP_IN_SEC        = var.JWT_REFRESH_TOKEN_EXP_IN_SEC
+    WEBSITES_ENABLE_APP_SERVICE_STORAGE = var.WEBSITES_ENABLE_APP_SERVICE_STORAGE
+    DEFAULT_ADMIN_USER_PASSWORD = var.DEFAULT_ADMIN_USER_PASSWORD
+  }
   
   site_config {
     application_stack {
