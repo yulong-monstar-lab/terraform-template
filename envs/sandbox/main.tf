@@ -56,7 +56,6 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = true
 }
 
-
 // Web app module, contains service plan and web app.
 module "webapp" {
   source                  = "../../modules/azure/webapp"
@@ -130,5 +129,4 @@ module "database" {
   database_charset        = var.database_charset
   tags = var.tags
 }
-
 
