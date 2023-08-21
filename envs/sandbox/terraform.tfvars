@@ -72,3 +72,11 @@ acr_sku  = "Basic"
 // az keyvault show --name "komatsukeyvault"
 // TODO: Replace key_vault_id with the one you create manually
 key_vault_id = "/subscriptions/fa40ee3f-0b7d-4f80-84b5-dd59c484dce7/resourceGroups/komatsu-dx-app/providers/Microsoft.KeyVault/vaults/komatsukeyvault"
+
+// Traffic manager
+traffic_manager_name = "komatsu-traffic-manager"
+traffic_routing_method = "Performance"
+monitor_config_protocol = "HTTPS"
+monitor_config_port = 443
+endpoint_name = "webapp-endpoint"
+# geo_mappings = [""]

@@ -2,9 +2,10 @@
 We use Terraform to automate infrastructure on cloud.
 
 ## Terraform project structure
-![Alt text](image.png)
+![Alt text](screenshots/image.png)
 
 ## Basic Terraform Commands
+Run following commands in an environment, e.g., `envs/sandbox`.
 ### Init a Terraform project
 ```shell
 terraform init
@@ -27,7 +28,7 @@ terraform destroy
 ## Azure Cloud
 We defined Azure modules under `modules/azure`, and create those modules in the main module under `envs/`, e.g., `envs/sanbox`.
 
-### Modules
+### Modules and resources
 #### networking
 We defined a `Virtual Network` and two subnets. One of the subnets is `Protected Subnet` which can be accessed from the internet in some conditions. The other subnet is `Private Subnet` which only could be accessed from the same Virtual network.
 
@@ -44,3 +45,14 @@ Note: We use `Key Vault` to store some JWT information. Make sure you create tho
 
 #### Container repository
 We defined a container repository to maintain the `docker images` generated from the `Git Actions`.
+
+#### Key Vault Secret
+We need to create a key Vault in the cloud and configure secrets manually. Then we import those secrets for webapp and db. <br>
+After creating the key Vault, replace the key_vault_id. See TODO in `terraform.tfvars` <br>
+Use the following command to find key_vault_id.
+```shell
+az keyvault show --name "mykeyvault"
+```
+
+#### Traffic manager
+We defined a `Traffic Manager` to manage traffic. It had worked before, but it seems that Azure has changed the Traffic Manager or Web Application, we couldn't access webapp through Traffic manager currently.

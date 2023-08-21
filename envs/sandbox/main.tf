@@ -130,3 +130,13 @@ module "database" {
   tags = var.tags
 }
 
+module "trafficmanager"{
+  source                  = "../../modules/azure/trafficmanager"
+  traffic_manager_name = var.traffic_manager_name
+  resource_group_name    = var.resource_group_name
+  traffic_routing_method = var.traffic_routing_method
+  monitor_config_protocol = var.monitor_config_protocol
+  monitor_config_port = var.monitor_config_port
+  endpoint_name = var.endpoint_name
+  target_resource_id = module.webapp.web_app_id
+}
