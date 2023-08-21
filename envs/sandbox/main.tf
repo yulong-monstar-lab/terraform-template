@@ -130,6 +130,8 @@ module "database" {
   tags = var.tags
 }
 
+// Traffic Manager
+// Note: Only sku:S1 and above are supported Traffic Manager
 module "trafficmanager"{
   source                  = "../../modules/azure/trafficmanager"
   traffic_manager_name = var.traffic_manager_name

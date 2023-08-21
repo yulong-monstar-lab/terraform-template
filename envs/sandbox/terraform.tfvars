@@ -11,7 +11,8 @@ resource_group_location = "japaneast"
 // Service plan
 service_plan_name     = "komatsu-service-plan"
 service_plan_os_type  = "Linux"
-service_plan_sku_name = "B1"
+# service_plan_sku_name = "B1"
+service_plan_sku_name = "S1"
 
 
 // network module

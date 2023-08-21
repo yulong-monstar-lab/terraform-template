@@ -47,12 +47,13 @@ Note: We use `Key Vault` to store some JWT information. Make sure you create tho
 We defined a container repository to maintain the `docker images` generated from the `Git Actions`.
 
 #### Key Vault Secret
-We need to create a key Vault in the cloud and configure secrets manually. Then we import those secrets for webapp and db. <br>
-After creating the key Vault, replace the key_vault_id. See TODO in `terraform.tfvars` <br>
+We need to create a key Vault in the cloud and configure secrets manually. Then we import those secrets for webapp and db. </br>
+After creating the key Vault, replace the key_vault_id. See TODO in `terraform.tfvars` </br>
 Use the following command to find key_vault_id.
 ```shell
 az keyvault show --name "mykeyvault"
 ```
 
 #### Traffic manager
-We defined a `Traffic Manager` to manage traffic. It had worked before, but it seems that Azure has changed the Traffic Manager or Web Application, we couldn't access webapp through Traffic manager currently.
+We defined a `Traffic Manager` to manage traffic.</br>
+Note: Only sku:S1 and above are supported Traffic Manager
