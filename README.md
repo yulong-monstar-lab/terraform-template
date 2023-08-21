@@ -56,4 +56,4 @@ az keyvault show --name "mykeyvault"
 
 #### Traffic manager
 We defined a `Traffic Manager` to manage traffic.</br>
-Note: Only sku:S1 and above are supported Traffic Manager
+Note: Only webapp with sku:S1 and above are supported Traffic Manager
