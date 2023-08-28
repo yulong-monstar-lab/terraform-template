@@ -83,7 +83,7 @@ We need to create a key Vault in the cloud and configure secrets manually. Then 
 After creating the key Vault, replace the key_vault_id. See TODO in `terraform.tfvars` </br>
 Use the following command to find key_vault_id.
 ```shell
-az keyvault show --name "mykeyvault"
+az keyvault show --name "komatsukeyvault" | grep "id"
 ```
 
 #### Traffic manager
