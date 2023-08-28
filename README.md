@@ -96,9 +96,9 @@ Note: Only webapp with sku:S1 and above can support Traffic Manager
 3. Create a Storage Account in the Resource Group
 4. Create a Container in the Storage Account
 5. Replace values of `backend "azurerm"` in `versions.tf` for keeping `terraform.tfvars` in Azure Storage Account
-3. Create a Azure Key Vault in the Resource Group
-4. Create Secrets in the Key Vault
-5. Replace `key_vault_id` in terraform.tfvars
+6. Create a Azure Key Vault in the Resource Group
+7. Create Secrets (`DBHOST`, `DBUSER`, `DBPASS`, `JWT-PRIVATE-KEY-BASE64`, `JWT-PUBLIC-KEY-BASE64`) in the Key Vault which will be used in `main.tf`
+8. Replace `key_vault_id` in terraform.tfvars
 
 ## Fast QA
 ### How to create symlinks
