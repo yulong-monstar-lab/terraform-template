@@ -70,7 +70,7 @@ acr_sku  = "Basic"
 # key_vault_sku = "standard"
 
 // Use the following command to get key vault id
-// az keyvault show --name "komatsukeyvault"
+// az keyvault show --name "komatsukeyvault" | grep "id"
 // TODO: Replace key_vault_id with the one you create manually
 key_vault_id = "/subscriptions/fa40ee3f-0b7d-4f80-84b5-dd59c484dce7/resourceGroups/komatsu-dx-app/providers/Microsoft.KeyVault/vaults/komatsukeyvault"
 
