@@ -99,3 +99,10 @@ Note: Only webapp with sku:S1 and above can support Traffic Manager
 3. Create a Azure Key Vault in the Resource Group
 4. Create Secrets in the Key Vault
 5. Replace `key_vault_id` in terraform.tfvars
+
+## Fast QA
+### How to create symlinks
+Use commands like this
+```shell
+ln envs/_share/main.tf sandbox/main.tf
+```
