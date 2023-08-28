@@ -32,8 +32,12 @@ We use Terraform to automate infrastructure on cloud.
 * .vscode/settings.json
 * …
 
-## Basic Terraform Commands
-Run following commands in an environment, e.g., `envs/sandbox`.
+## Basic Commands
+### Login Azure account
+```shell
+az login
+```
+Run following commands in an environment, e.g., `terraform/envs/sandbox`.
 ### Init a Terraform project
 ```shell
 terraform init
@@ -85,3 +89,10 @@ az keyvault show --name "mykeyvault"
 #### Traffic manager
 We defined a `Traffic Manager` to manage traffic.</br>
 Note: Only webapp with sku:S1 and above can support Traffic Manager
+
+## What you need to do before applying resources
+1. Create a Resource Group
+2. Replace the resource_group_name in terraform.tfvars
+3. Create a Azure Key Vault
+4. Create Secrets in the Key Vault
+5. Replace key_vault_id in terraform.tfvars
