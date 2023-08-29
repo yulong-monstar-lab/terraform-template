@@ -1,0 +1,15 @@
+{
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "*.tf",
+        "cmd": "terraform fmt -recursive"
+      }
+    ]
+  }
+}

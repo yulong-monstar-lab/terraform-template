@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "hashicorp.terraform",
+    "azapi-vscode.azapi",
+    "emeraldwalk.runonsave"
+  ]
+}
