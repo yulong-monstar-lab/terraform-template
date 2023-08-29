@@ -1,3 +1,5 @@
+.DS_Store
+
 # Created by https://www.toptal.com/developers/gitignore/api/terraform
 # Edit at https://www.toptal.com/developers/gitignore?templates=terraform
 
@@ -37,6 +39,7 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+**/.terraform.lock.hcl
 # End of https://www.toptal.com/developers/gitignore/api/terraform
 
 !terraform.tfvars
