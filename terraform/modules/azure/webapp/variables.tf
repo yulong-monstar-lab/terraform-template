@@ -54,6 +54,15 @@ variable "DB_PORT" {
 variable "DB_SSL" {
   type = string
 }
+variable "JWT_AUTHORITY" {
+  type = string
+}
+variable "JWT_AUDIENCE" {
+  type = string
+}
+variable "JWT_ISSUER" {
+  type = string
+}
 variable "JWT_ACCESS_TOKEN_EXP_IN_SEC" {
   type = string
 }

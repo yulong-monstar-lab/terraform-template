@@ -20,6 +20,14 @@ data "azurerm_key_vault_secret" "db_pass" {
   name         = "DBPASS"
   key_vault_id = var.key_vault_id
 }
+data "azurerm_key_vault_secret" "db_name" {
+  name         = "DBNAME"
+  key_vault_id = var.key_vault_id
+}
+data "azurerm_key_vault_secret" "db_port" {
+  name         = "DBPORT"
+  key_vault_id = var.key_vault_id
+}
 data "azurerm_key_vault_secret" "jwt_authority" {
   name         = "JWT-AUTHORITY"
   key_vault_id = var.key_vault_id
@@ -64,10 +72,10 @@ module "webapp" {
   APP_ENV                             = var.APP_ENV
   APP_PORT                            = var.APP_PORT
   DB_HOST                             = data.azurerm_key_vault_secret.db_host.value
-  DB_NAME                             = var.DB_NAME
+  DB_NAME                             = data.azurerm_key_vault_secret.db_name.value
   DB_USER                             = data.azurerm_key_vault_secret.db_user.value
   DB_PASS                             = data.azurerm_key_vault_secret.db_pass.value
-  DB_PORT                             = var.DB_PORT
+  DB_PORT                             = data.azurerm_key_vault_secret.db_port.value
   DB_SSL                              = var.DB_SSL
   JWT_AUTHORITY                       = data.azurerm_key_vault_secret.jwt_authority.value
   JWT_AUDIENCE                        = data.azurerm_key_vault_secret.jwt_audience.value

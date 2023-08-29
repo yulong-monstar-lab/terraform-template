@@ -69,7 +69,7 @@ Note: Only webapp with sku:S1 and above can support Traffic Manager
 4. Create a Container in the Storage Account
 5. Replace values of `backend "azurerm"` in `versions.tf` for keeping `terraform.tfvars` in Azure Storage Account
 6. Create a Azure Key Vault in the Resource Group
-7. Create Secrets (`DBHOST`, `DBUSER`, `DBPASS`, `JWT-PRIVATE-KEY-BASE64`, `JWT-PUBLIC-KEY-BASE64`) in the Key Vault which will be used in `main.tf`
+7. Create Secrets (`DBHOST`, `DBUSER`, `DBPASS`, `DBNAME`, `DBPORT`, `JWT_AUTHORITY`, `JWT_AUDIENCE`, `JWT_ISSUER`, `JWT-PRIVATE-KEY-BASE64`, `JWT-PUBLIC-KEY-BASE64`) in the Key Vault which will be used in `main.tf`
 8. Replace `key_vault_id` in terraform.tfvars
 
 ## Fast QA
