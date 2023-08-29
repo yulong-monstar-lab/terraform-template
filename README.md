@@ -78,3 +78,17 @@ Use commands like this
 ```shell
 ln envs/_share/main.tf sandbox/main.tf
 ```
+### Where is the state file
+We keep it in the cloud, so everybody share the same state file.
+```
+# terraform/_envs/_share/versions.tf
+terraform {
+  ...
+  backend "azurerm" {
+    resource_group_name   = "komatsu-dx-app"
+    storage_account_name  = "komatsustorageaccount"
+    container_name        = "mycontainer"
+    key                   = "terraform.tfstate"
+  }
+}
+```
