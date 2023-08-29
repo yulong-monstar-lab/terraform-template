@@ -20,6 +20,18 @@ data "azurerm_key_vault_secret" "db_pass" {
   name         = "DBPASS"
   key_vault_id = var.key_vault_id
 }
+data "azurerm_key_vault_secret" "jwt_authority" {
+  name         = "JWT-AUTHORITY"
+  key_vault_id = var.key_vault_id
+}
+data "azurerm_key_vault_secret" "jwt_audience" {
+  name         = "JWT-AUDIENCE"
+  key_vault_id = var.key_vault_id
+}
+data "azurerm_key_vault_secret" "jwt_issuer" {
+  name         = "JWT-ISSUER"
+  key_vault_id = var.key_vault_id
+}
 data "azurerm_key_vault_secret" "jwt_private_key" {
   name         = "JWT-PRIVATE-KEY-BASE64"
   key_vault_id = var.key_vault_id
@@ -57,6 +69,9 @@ module "webapp" {
   DB_PASS                             = data.azurerm_key_vault_secret.db_pass.value
   DB_PORT                             = var.DB_PORT
   DB_SSL                              = var.DB_SSL
+  JWT_AUTHORITY                       = data.azurerm_key_vault_secret.jwt_authority.value
+  JWT_AUDIENCE                        = data.azurerm_key_vault_secret.jwt_audience.value
+  JWT_ISSUER                          = data.azurerm_key_vault_secret.jwt_issuer.value
   JWT_ACCESS_TOKEN_EXP_IN_SEC         = var.JWT_ACCESS_TOKEN_EXP_IN_SEC
   JWT_PRIVATE_KEY_BASE64              = data.azurerm_key_vault_secret.jwt_private_key.value
   JWT_PUBLIC_KEY_BASE64               = data.azurerm_key_vault_secret.jwt_public_key.value
