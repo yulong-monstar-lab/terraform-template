@@ -1,1 +1,1 @@
-_share/main.tf
+../_share/main.tf
