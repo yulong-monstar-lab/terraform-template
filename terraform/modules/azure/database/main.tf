@@ -10,6 +10,7 @@ resource "azurerm_postgresql_flexible_server" "db" {
   administrator_login    = var.db_login
   administrator_password = var.db_pwd
   zone                   = var.db_zone
+  public_network_access_enabled = false
 
   // sku: general purpose and above are supported high_availability, e.g., GP_Standard_D2s_v3
   // sku: B_Standard_B1ms doesn't support this
