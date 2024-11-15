@@ -10,7 +10,7 @@ We use Terraform to automate infrastructure on cloud.
 
 ### Login Azure account
 
-```shell
+```bash
 az login
 ```
 
@@ -19,25 +19,26 @@ Note: We keep the terraform state file in Azure storage, so everyone share the s
 
 ### Init a Terraform project
 
-```shell
+```bash
+cd terraform/envs/sandbox
 terraform init
 ```
 
 ### Verify the configuration
 
-```shell
+```bash
 terraform plan
 ```
 
 ### Create resources in a specified cloud
 
-```shell
+```bash
 terraform apply
 ```
 
 ### Delete resources in the specified cloud
 
-```shell
+```bash
 terraform destroy
 ```
 
@@ -75,7 +76,7 @@ We need to create a key Vault in the cloud and configure secrets manually. Then 
 After creating the key Vault, replace the key_vault_id. See TODO in `terraform.tfvars` </br>
 Use the following command to find key_vault_id.
 
-```shell
+```bash
 az keyvault show --name "komatsukeyvault" | grep "id"
 ```
 
@@ -101,7 +102,7 @@ Note: Only webapp with sku:S1 and above can support Traffic Manager
 
 Use commands like this
 
-```shell
+```bash
 ln envs/_share/main.tf sandbox/main.tf
 ```
 
@@ -110,14 +111,14 @@ ln envs/_share/main.tf sandbox/main.tf
 We keep it in the cloud, so everybody share the same state file.
 
 ```
-# terraform/_envs/_share/versions.tf
+# terraform/_envs/sangbox/backend.tf
 terraform {
-  ...
   backend "azurerm" {
-    resource_group_name   = "komatsu-dx-app"
-    storage_account_name  = "komatsustorageaccount"
+    resource_group_name   = "cicd-test"
+    storage_account_name  = "cicdtestyulong"
     container_name        = "mycontainer"
     key                   = "terraform.tfstate"
   }
 }
+
 ```
