@@ -5,7 +5,6 @@ resource "azurerm_service_plan" "webapp" {
   name                = var.service_plan_name
   os_type             = var.service_plan_os_type
   sku_name            = var.service_plan_sku_name
-
   tags = var.tags
 }
 
@@ -40,7 +39,9 @@ resource "azurerm_linux_web_app" "webapp" {
     application_stack {
       docker_image_name   = "appsvc/staticsite:latest"
       docker_registry_url = "https://mcr.microsoft.com"
+       
     }
+    always_on = false
   }
   depends_on = [
     azurerm_service_plan.webapp,
